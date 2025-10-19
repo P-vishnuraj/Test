@@ -169,6 +169,7 @@ function App() {
             }}
             onDeleteHabit={handleDeleteHabit}
             onToggleComplete={handleToggleComplete}
+            onAddNote={handleAddNote}
             selectedDate={selectedDate}
           />
         ) : (
