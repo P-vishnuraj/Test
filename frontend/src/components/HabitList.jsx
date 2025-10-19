@@ -30,6 +30,28 @@ const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleCom
     return categories.find(c => c.id === categoryId)?.color || '#E0E0E0';
   };
 
+  const handleNoteSubmit = (habitId) => {
+    if (noteText.trim()) {
+      onAddNote(habitId, dateStr, noteText.trim());
+      setNoteText('');
+      setExpandedHabit(null);
+    }
+  };
+
+  const handleToggle = (habitId) => {
+    onToggleComplete(habitId, dateStr);
+    const habit = habits.find(h => h.id === habitId);
+    const wasCompleted = habit.completedDates?.includes(dateStr);
+    
+    if (!wasCompleted) {
+      setExpandedHabit(habitId);
+      setNoteText(habit.notes?.[dateStr] || '');
+    } else {
+      setExpandedHabit(null);
+      setNoteText('');
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8">
