@@ -81,6 +81,21 @@ function App() {
     setHabits(habits.filter(h => h.id !== habitId));
   };
 
+  const handleAddNote = (habitId, dateStr, note) => {
+    setHabits(habits.map(habit => {
+      if (habit.id === habitId) {
+        return {
+          ...habit,
+          notes: {
+            ...habit.notes,
+            [dateStr]: note
+          }
+        };
+      }
+      return habit;
+    }));
+  };
+
   const handleApplyTemplate = (template) => {
     const newHabits = template.habits.map(h => ({
       ...h,
