@@ -116,41 +116,41 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #FFF8E7 0%, #F5F0FA 50%, #E8F4F8 100%)' }}>
+    <div className="min-h-screen app-container" style={{ background: 'linear-gradient(135deg, #FFF8E7 0%, #F5F0FA 50%, #E8F4F8 100%)' }}>
       {/* Header */}
       <div className="sticky top-0 z-10 backdrop-blur-sm" style={{ backgroundColor: '#FFFFFF95', borderBottom: '1px solid #E8D5F2' }}>
-        <div className="max-w-4xl mx-auto px-6 py-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-light" style={{ color: '#5A4A6A' }}>My Habits</h1>
+            <h1 className="text-xl sm:text-2xl font-light" style={{ color: '#5A4A6A' }}>My Habits</h1>
             
             <div className="flex items-center gap-2">
               <Button
                 onClick={() => setIsTemplateModalOpen(true)}
-                className="rounded-full px-4 py-2 transition-all duration-200 hover:scale-105"
+                className="rounded-full px-3 sm:px-4 py-2 transition-all duration-200 hover:scale-105 text-xs sm:text-sm"
                 style={{ backgroundColor: '#C8E6C9', color: '#5A4A6A', border: 'none' }}
               >
-                <Sparkles className="w-4 h-4 mr-2" />
-                Templates
+                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Templates</span>
               </Button>
               
               <Button
                 onClick={() => setView(view === 'list' ? 'calendar' : 'list')}
-                className="w-10 h-10 rounded-full transition-all duration-200 hover:scale-105"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full transition-all duration-200 hover:scale-105"
                 style={{ backgroundColor: '#E8D5F2', border: 'none' }}
               >
                 {view === 'list' ? (
-                  <Calendar className="w-5 h-5" style={{ color: '#5A4A6A' }} />
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: '#5A4A6A' }} />
                 ) : (
-                  <List className="w-5 h-5" style={{ color: '#5A4A6A' }} />
+                  <List className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: '#5A4A6A' }} />
                 )}
               </Button>
               
               <Button
                 onClick={handleLogout}
-                className="w-10 h-10 rounded-full transition-all duration-200 hover:scale-105"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full transition-all duration-200 hover:scale-105"
                 style={{ backgroundColor: '#FFE5EC', border: 'none' }}
               >
-                <LogOut className="w-4 h-4" style={{ color: '#9B8AA8' }} />
+                <LogOut className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: '#9B8AA8' }} />
               </Button>
             </div>
           </div>
