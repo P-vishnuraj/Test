@@ -119,10 +119,13 @@ const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleCom
       <div className="space-y-3 mb-6">
         {filteredHabits.map(habit => {
           const completed = isCompleted(habit);
+          const hasNote = habit.notes?.[dateStr];
+          const isExpanded = expandedHabit === habit.id;
+          
           return (
             <Card
               key={habit.id}
-              className="p-4 transition-all duration-200 hover:shadow-md"
+              className="transition-all duration-200 hover:shadow-md"
               style={{
                 backgroundColor: completed ? getCategoryColor(habit.category) : '#FFFFFF',
                 border: '2px solid',
@@ -130,53 +133,105 @@ const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleCom
                 borderRadius: '16px'
               }}
             >
-              <div className="flex items-center gap-4">
-                <Button
-                  onClick={() => onToggleComplete(habit.id, dateStr)}
-                  className="w-12 h-12 rounded-full flex-shrink-0 transition-all duration-200 hover:scale-110"
-                  style={{
-                    backgroundColor: completed ? '#FFFFFF' : getCategoryColor(habit.category),
-                    border: '2px solid',
-                    borderColor: completed ? getCategoryColor(habit.category) : '#E0E0E0'
-                  }}
-                >
-                  {completed && <Check className="w-5 h-5" style={{ color: '#5A4A6A' }} />}
-                </Button>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{habit.emoji}</span>
-                    <h3 className="text-base font-normal" style={{ color: '#5A4A6A' }}>
-                      {habit.name}
-                    </h3>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs" style={{ color: '#9B8AA8' }}>
-                    <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#FFFFFF50' }}>
-                      {timesOfDay.find(t => t.value === habit.timeOfDay)?.label}
-                    </span>
-                    {habit.streak > 0 && (
-                      <span className="flex items-center gap-1">
-                        <Flame className="w-3 h-3" style={{ color: '#FF9F7F' }} />
-                        {habit.streak} days
+              <div className="p-4">
+                <div className="flex items-center gap-4">
+                  <Button
+                    onClick={() => handleToggle(habit.id)}
+                    className="w-12 h-12 rounded-full flex-shrink-0 transition-all duration-200 hover:scale-110"
+                    style={{
+                      backgroundColor: completed ? '#FFFFFF' : getCategoryColor(habit.category),
+                      border: '2px solid',
+                      borderColor: completed ? getCategoryColor(habit.category) : '#E0E0E0'
+                    }}
+                  >
+                    {completed && <Check className="w-5 h-5" style={{ color: '#5A4A6A' }} />}
+                  </Button>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-2xl">{habit.emoji}</span>
+                      <h3 className="text-base font-normal" style={{ color: '#5A4A6A' }}>
+                        {habit.name}
+                      </h3>
+                      {hasNote && (
+                        <StickyNote className="w-4 h-4" style={{ color: '#9C6FB7' }} />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 text-xs" style={{ color: '#9B8AA8' }}>
+                      <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#FFFFFF50' }}>
+                        {timesOfDay.find(t => t.value === habit.timeOfDay)?.label}
                       </span>
+                      {habit.streak > 0 && (
+                        <span className="flex items-center gap-1">
+                          <Flame className="w-3 h-3" style={{ color: '#FF9F7F' }} />
+                          {habit.streak} days
+                        </span>
+                      )}
+                    </div>
+                    {hasNote && !isExpanded && (
+                      <div className="mt-2 text-xs italic px-3 py-2 rounded-lg" style={{ backgroundColor: '#FFFFFF80', color: '#5A4A6A' }}>
+                        {hasNote}
+                      </div>
                     )}
                   </div>
+
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        className="w-8 h-8 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: 'transparent', border: 'none' }}
+                      >
+                        <MoreVertical className="w-4 h-4" style={{ color: '#9B8AA8' }} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem onClick={() => {
+                        setExpandedHabit(habit.id);
+                        setNoteText(habit.notes?.[dateStr] || '');
+                      }}>
+                        {hasNote ? 'Edit Note' : 'Add Note'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onEditHabit(habit)}>Edit Habit</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onDeleteHabit(habit.id)} style={{ color: '#E57373' }}>Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
 
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      className="w-8 h-8 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: 'transparent', border: 'none' }}
-                    >
-                      <MoreVertical className="w-4 h-4" style={{ color: '#9B8AA8' }} />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem onClick={() => onEditHabit(habit)}>Edit</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => onDeleteHabit(habit.id)} style={{ color: '#E57373' }}>Delete</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {isExpanded && (
+                  <div className="mt-3 pt-3 border-t" style={{ borderColor: '#E8D5F2' }}>
+                    <div className="flex gap-2">
+                      <Input
+                        value={noteText}
+                        onChange={(e) => setNoteText(e.target.value)}
+                        placeholder="Add a note (e.g., book name, thoughts...)"
+                        className="flex-1 rounded-xl text-sm"
+                        style={{ borderColor: '#E8D5F2' }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleNoteSubmit(habit.id);
+                          }
+                        }}
+                      />
+                      <Button
+                        onClick={() => handleNoteSubmit(habit.id)}
+                        className="px-4 rounded-xl"
+                        style={{ backgroundColor: '#E8D5F2', color: '#5A4A6A', border: 'none' }}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setExpandedHabit(null);
+                          setNoteText('');
+                        }}
+                        className="px-4 rounded-xl"
+                        style={{ backgroundColor: '#F5F0FA', color: '#9B8AA8', border: 'none' }}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
           );
