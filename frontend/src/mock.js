@@ -40,18 +40,18 @@ export const mockTemplates = [
     id: 't1',
     name: 'Daily Essentials',
     habits: [
-      { name: 'Morning stretch', emoji: '🤸', category: 'wellness', timeOfDay: 'morning' },
-      { name: 'Healthy breakfast', emoji: '🥗', category: 'health', timeOfDay: 'morning' },
-      { name: 'Gratitude journaling', emoji: '✨', category: 'personal', timeOfDay: 'evening' }
+      { id: 'h1', name: 'Morning stretch', emoji: '🤸', category: 'wellness', timeOfDay: 'morning', streak: 5, completedDates: ['2025-07-15', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19'], notes: {} },
+      { id: 'h2', name: 'Healthy breakfast', emoji: '🥗', category: 'health', timeOfDay: 'morning', streak: 3, completedDates: ['2025-07-17', '2025-07-18', '2025-07-19'], notes: {} },
+      { id: 'h3', name: 'Gratitude journaling', emoji: '✨', category: 'personal', timeOfDay: 'evening', streak: 2, completedDates: ['2025-07-18', '2025-07-19'], notes: {} }
     ]
   },
   {
     id: 't2',
     name: 'Office Routine',
     habits: [
-      { name: 'Team standup', emoji: '👥', category: 'work', timeOfDay: 'morning' },
-      { name: 'Inbox zero', emoji: '📬', category: 'work', timeOfDay: 'afternoon' },
-      { name: 'End-of-day review', emoji: '📝', category: 'work', timeOfDay: 'evening' }
+      { id: 'h4', name: 'Team standup', emoji: '👥', category: 'work', timeOfDay: 'morning', streak: 10, completedDates: ['2025-07-10', '2025-07-11', '2025-07-12', '2025-07-15', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19'], notes: {} },
+      { id: 'h5', name: 'Inbox zero', emoji: '📬', category: 'work', timeOfDay: 'afternoon', streak: 4, completedDates: ['2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19'], notes: {} },
+      { id: 'h6', name: 'End-of-day review', emoji: '📝', category: 'work', timeOfDay: 'evening', streak: 6, completedDates: ['2025-07-14', '2025-07-15', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19'], notes: {} }
     ]
   }
 ];
