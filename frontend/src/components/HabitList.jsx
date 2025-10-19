@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Plus, Check, MoreVertical, Flame } from 'lucide-react';
+import { Input } from './ui/input';
+import { Plus, Check, MoreVertical, Flame, StickyNote } from 'lucide-react';
 import { categories, timesOfDay } from '../mock';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 
