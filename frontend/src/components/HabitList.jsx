@@ -6,9 +6,11 @@ import { Plus, Check, MoreVertical, Flame, StickyNote } from 'lucide-react';
 import { categories, timesOfDay } from '../mock';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 
-const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleComplete, selectedDate }) => {
+const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleComplete, onAddNote, selectedDate }) => {
   const [filter, setFilter] = useState('all');
   const [timeFilter, setTimeFilter] = useState('all');
+  const [expandedHabit, setExpandedHabit] = useState(null);
+  const [noteText, setNoteText] = useState('');
 
   const dateStr = selectedDate.toISOString().split('T')[0];
   
