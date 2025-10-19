@@ -87,10 +87,10 @@ const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleCom
           ))}
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           <Button
             onClick={() => setTimeFilter('all')}
-            className="rounded-full px-4 py-2 text-sm font-light transition-all duration-200"
+            className="rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-light transition-all duration-200 flex-shrink-0"
             style={{
               backgroundColor: timeFilter === 'all' ? '#C8E6C9' : '#F5F0FA',
               color: '#5A4A6A',
@@ -103,7 +103,7 @@ const HabitList = ({ habits, onAddHabit, onEditHabit, onDeleteHabit, onToggleCom
             <Button
               key={time.value}
               onClick={() => setTimeFilter(time.value)}
-              className="rounded-full px-4 py-2 text-sm font-light whitespace-nowrap transition-all duration-200"
+              className="rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-light whitespace-nowrap transition-all duration-200 flex-shrink-0"
               style={{
                 backgroundColor: timeFilter === time.value ? '#C8E6C9' : '#F5F0FA',
                 color: '#5A4A6A',
