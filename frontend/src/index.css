@@ -82,6 +82,30 @@ code {
     }
 }
 
+/* Mobile optimizations */
+@media (max-width: 640px) {
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* Prevent zoom on input focus (iOS) */
+input[type="text"],
+input[type="number"],
+textarea {
+    font-size: 16px;
+}
+
+/* Touch-friendly tap targets */
+button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
 @layer base {
     [data-debug-wrapper="true"] {
         display: contents !important;
